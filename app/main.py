@@ -42,7 +42,7 @@ api = APIRouter(prefix="/api")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:8000", "http://localhost", "https://lcr.chiggydoes.tech"],
+    allow_origins=["http://127.0.0.1:8000", "http://localhost:9000", "https://localhost:9000", "https://lcr.chiggydoes.tech"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -55,7 +55,7 @@ SessionDep = Annotated[Session, Depends(get_session)]
 @api.get("/tasks", response_model=list[TaskRead])
 async def read_tasks(session: SessionDep):
     """Get Tasks"""
-    tasks = session.exec(select(Task).where(Task.status == TaskStatus.PENDING)).all()
+    tasks = session.exec(select(Task)).all()
     return tasks
 
 

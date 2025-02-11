@@ -125,6 +125,3 @@ def delete_task(task_id: int, session: SessionDep):
 
 
 app.include_router(api)
-
-# if __name__ == "__main__":
-#     uvicorn.run(app, host="0.0.0.0", port=settings.port)

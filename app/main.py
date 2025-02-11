@@ -3,12 +3,19 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Annotated
 
+from app.models import (
+    Task,
+    TaskCreate,
+    TaskRead,
+    TaskStatus,
+    TaskUpdate,
+    get_next_interval,
+)
+from app.settings import settings
 from fastapi import APIRouter, Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
-from models import Task, TaskCreate, TaskRead, TaskStatus, TaskUpdate, get_next_interval
-from settings import settings
 from sqlmodel import Session, SQLModel, create_engine, select
 import uvicorn
 
@@ -116,7 +123,8 @@ def delete_task(task_id: int, session: SessionDep):
 
     return {"message": "Task deleted successfully"}
 
+
 app.include_router(api)
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=settings.port)
+# if __name__ == "__main__":
+#     uvicorn.run(app, host="0.0.0.0", port=settings.port)
